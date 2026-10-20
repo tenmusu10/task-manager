@@ -1,0 +1,270 @@
+/* ページ全体 */
+* {
+  box-sizing: border-box; /* パディングとボーダーを要素の幅・高さに含める */
+}
+
+body {
+  margin: 0;
+  font-family: "Noto Sans JP", "Yu Gothic", sans-serif;
+  background-color: #f4f7f5; /* 画面全体の背景色（薄いグレー） */
+  color: #26352e;            /* 基本文字色（濃いグレー） */
+}
+
+/* ログイン画面の配置 */
+.login-container {
+  min-height: 100vh;       /* 画面の高さをブラウザの表示領域いっぱいに確保 */
+  display: flex;
+  justify-content: center; /* ログインカードを水平方向の中央に配置 */
+  align-items: center;     /* ログインカードを垂直方向の中央に配置 */
+  padding: 24px;
+}
+
+/* ログインカード */
+.login-card {
+  width: 100%;
+  max-width: 420px;                   /* コンテナの最大横幅 */
+  padding: 40px 32px;                 /* 内側余白 */
+  background-color: #ffffff;          /* カードの背景色（白） */
+  border-radius: 16px;                /* 角丸 */
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.07); /* カードのドロップシャドウ */
+}
+
+/* タイトル */
+h1 {
+  margin: 0 0 12px;
+  text-align: center;
+  font-size: 28px;
+  color: #176b4d;      /* プライマリーカラー（深緑） */
+}
+
+.subtitle {
+  margin-bottom: 32px; /* 入力フォームとの要素間余白 */
+  text-align: center;
+  font-size: 14px;
+  color: #6b7771;      /* サブテキスト色 */
+}
+
+/* 入力欄（フォームグループ） */
+.form-group {
+  margin-bottom: 22px; /* フォームアイテム間の下部余白 */
+}
+
+.form-group label {
+  display: block;      /* ブロック要素化してラベルの下に入力欄を配置 */
+  margin-bottom: 8px;  /* 入力欄との隙間 */
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.form-group input {
+  width: 100%;         /* 横幅をコンテナの最大まで拡張 */
+  padding: 13px 14px;  /* 入力欄の内側余白 */
+  border: 1px solid #d5ddd8;
+  border-radius: 8px;
+  font-size: 15px;
+  outline: none;       /* ブラウザ標準のフォーカス枠線を無効化 */
+  transition: all 0.2s ease; /* フォーカス時のアニメーション設定 */
+}
+
+/* 入力欄フォーカス時 */
+.form-group input:focus {
+  border-color: #176b4d;                     /* 枠線色をメインカラーに変更 */
+  box-shadow: 0 0 0 3px rgba(23, 107, 77, 0.25); /* 外側にグリーンの光彩エフェクトを付与 */
+}
+
+/* ログインボタン */
+.login-button {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  background-color: #176b4d;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;                         /* ホバー時にカーソルをポインターに変更 */
+  transition: background-color 0.2s ease;  /* ホバー時のアニメーション設定 */
+}
+
+/* ログインボタンホバー時 */
+.login-button:hover {
+  background-color: #10563d; /* ホバー時にボタン色をトーンダウン */
+}
+
+/* メンバー追加リンク */
+.member-link {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.member-link a {
+  color: #176b4d;
+  text-decoration: none; /* デフォルトの下線を非表示 */
+}
+
+/* メンバー追加リンクホバー時 */
+.member-link a:hover {
+  text-decoration: underline; /* ホバー時に下線を表示 */
+}
+
+/* ログインエラー（認証失敗時の警告文エリア） */
+.error-message {
+  padding: 12px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  background-color: #fff0f0; /* アラート背景色（薄赤） */
+  border: 1px solid #fecdca; /* アラート枠線（薄赤） */
+  color: #b42318;            /* テキストカラー（赤） */
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/*ここからプロジェクト一覧表示*/
+/* メインヘッダー */
+.main-header {
+  display: flex;
+  justify-content: flex-end; /* 子要素を右寄せに配置 */
+  align-items: center;       /* 子要素を垂直方向の中央に配置 */
+  padding: 16px 24px;        /* ヘッダーの内側余白 */
+  background-color: #ffffff; /* ヘッダーの背景色（白） */
+  border-bottom: 1px solid #d5ddd8; /* 下部の区切り線 */
+  gap: 16px;                 /* ユーザー名とボタンの間の隙間 */
+}
+
+/* ユーザー名表示領域 */
+.user-info {
+  font-size: 14px;
+}
+
+/* ログアウトボタン */
+.logout-button {
+  padding: 8px 16px;
+  border: 1px solid #fda29b; /* 警告用のアラート枠線（薄赤） */
+  border-radius: 6px;
+  background-color: #fef3f2; /* アラート背景色（薄赤） */
+  color: #b42318;            /* テキストカラー（赤） */
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease; /* ホバー時のアニメーション設定 */
+}
+
+/* ログアウトボタンホバー時 */
+.logout-button:hover {
+  background-color: #fee4e2; /* ホバー時に背景の赤みを少し濃くする */
+}
+
+/* 一覧画面のメインコンテナ */
+.list-container {
+  max-width: 1000px;         /* テーブルが見やすくなる最適な最大横幅 */
+  margin: 40px auto;         /* 画面中央に配置し、上下に余白を確保 */
+  padding: 0 24px;           /* 左右のレスポンシブ用余白 */
+}
+
+/* アクションエリア（新規作成ボタンの配置用領域） */
+.action-area {
+  margin-bottom: 20px;       /* テーブルとの要素間余白 */
+}
+
+/* 新規プロジェクト作成ボタン */
+.create-button {
+  display: inline-block;     /* リンクタグをボタンの形状にするためブロック化 */
+  padding: 10px 20px;
+  background-color: #176b4d; /* プライマリーカラー（深緑） */
+  color: #ffffff;
+  text-decoration: none;     /* デフォルトの下線を非表示 */
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 14px;
+  transition: background-color 0.2s ease; /* ホバー時のアニメーション設定 */
+}
+
+/* 新規プロジェクト作成ボタンホバー時 */
+.create-button:hover {
+  background-color: #10563d; /* ホバー時にボタン色をトーンダウン */
+}
+
+/* プロジェクト一覧テーブル */
+.project-table {
+  width: 100%;
+  border-collapse: collapse; /* セル同士の枠線を重ねて1本にする */
+  background-color: #ffffff; /* テーブル全体の背景色（白） */
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04); /* テーブルの下部シャドウ */
+  overflow: hidden;          /* 角丸をテーブル内の要素にも適用させる設定 */
+}
+
+/* テーブルのヘッダーセル（一番上の項目行） */
+.project-table th {
+  background-color: #f4f7f5; /* ヘッダーの背景色（薄いグレー） */
+  color: #26352e;
+  text-align: left;          /* 文字列を左寄せ */
+  padding: 14px 16px;        /* セル内の余白 */
+  font-size: 14px;
+  border-bottom: 2px solid #d5ddd8; /* データ行との明確な区切り線 */
+}
+
+/* テーブルのデータセル（各プロジェクトのデータ行） */
+.project-table td {
+  padding: 16px;
+  border-bottom: 1px solid #e5ede9; /* 行同士の区切り線 */
+  font-size: 14px;
+  vertical-align: middle;    /* セル内の要素を垂直方向の中央に配置 */
+}
+
+/* プロジェクト名強調 */
+.project-name {
+  font-weight: bold;
+}
+
+/* タスク一覧リンクボタン */
+.task-link {
+  display: inline-block;     /* リンクタグをバッジの形状にするためブロック化 */
+  padding: 6px 12px;
+  background-color: #e0f2fe; /* インフォメーション用の背景色（薄い青） */
+  color: #0369a1;            /* テキストカラー（濃い青） */
+  text-decoration: none;     /* デフォルトの下線を非表示 */
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 13px;
+  transition: background-color 0.2s ease; /* ホバー時のアニメーション設定 */
+}
+
+/* タスク一覧リンクボタンホバー時 */
+.task-link:hover {
+  background-color: #bae6fd; /* ホバー時に背景の青みを少し濃くする */
+}
+
+/* 編集リンク */
+.edit-link {
+  color: #176b4d;            /* プライマリーカラー（深緑） */
+  text-decoration: none;
+  margin-right: 12px;        /* 削除リンクとの間隔 */
+  font-weight: bold;
+}
+
+/* 編集リンクホバー時 */
+.edit-link:hover {
+  text-decoration: underline; /* ホバー時に下線を表示 */
+}
+
+/* 削除リンク */
+.delete-link {
+  color: #b42318;            /* アラートカラー（赤） */
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* 削除リンクホバー時 */
+.delete-link:hover {
+  text-decoration: underline; /* ホバー時に下線を表示 */
+}
+
+
+
+/* 削除完了ポップアップの強制表示用クラス（JSPの条件分岐と連動） */
+.popup-overlay.success-active {
+  opacity: 1;
+  pointer-events: auto;
+}

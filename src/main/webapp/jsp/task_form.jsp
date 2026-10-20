@@ -100,21 +100,28 @@
     </main>
 
     <!-- ログアウト確認ポップアップ（スタイルをCSSで綺麗に制御するためのクラスを追加） -->
-    <div id="logout-popup" class="custom-popup" style="display: none;">
-        <h2>ログアウト確認</h2>
-        <p>本当にログアウトしますか？</p>
-        <form action="${pageContext.request.contextPath}/LogoutController" method="post">
-            <div class="popup-buttons">
-                <button type="submit" class="popup-btn-submit">ログアウト</button>
-                <button type="button" class="popup-btn-cancel" onclick="document.getElementById('logout-popup').style.display='none'">戻る</button>
-            </div>
-        </form>
+    <!-- ★修正：ログアウト確認ポップアップを task_board.jsp と同じ形に統一 -->
+    <div id="logout-popup" class="popup-overlay" style="display: none;">
+        <div class="popup-card">
+            <h2>ログアウト確認</h2>
+            <p class="popup-message">本当にログアウトしますか？</p>
+            <form action="${pageContext.request.contextPath}/LogoutController" method="post">
+                <div class="popup-action-buttons">
+                    <button type="submit" class="popup-yes-button">はい</button>
+                    <button type="button" class="popup-cancel-button" onclick="closeLogoutPopup()">いいえ</button>
+                </div>
+            </form>
+        </div>
     </div>
 
     <!-- JavaScript関数の定義（未定義エラー防止） -->
     <script>
         function openLogoutPopup() {
-            document.getElementById('logout-popup').style.display = 'block';
+            document.getElementById('logout-popup').style.display = 'flex';
+        }
+
+        function closeLogoutPopup() {
+            document.getElementById('logout-popup').style.display = 'none';
         }
     </script>
 </body>

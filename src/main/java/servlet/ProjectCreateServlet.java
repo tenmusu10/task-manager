@@ -3,8 +3,6 @@ package servlet;
 import java.io.IOException;
 import java.sql.Timestamp;
 
-import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,7 +25,8 @@ public class ProjectCreateServlet extends HttpServlet {
 
     
     
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	// ★修正：project_form.jsp は method="post" で送信するため doGet → doPost
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		try {
 			ProjectBean insertproject = new ProjectBean();
@@ -53,9 +52,9 @@ public class ProjectCreateServlet extends HttpServlet {
 		 e.printStackTrace();
 		}finally{
 		
-		}ServletContext context=getServletContext();
-		RequestDispatcher rd=context.getRequestDispatcher("/ProjectListServlet");
-		rd.forward(request, response);
+		}
+		// ★修正：POSTのままフォワードすると ProjectListServlet（doGetのみ）で405エラーになるためリダイレクトに変更
+		response.sendRedirect(request.getContextPath() + "/ProjectListServlet");
 
 	}
 }

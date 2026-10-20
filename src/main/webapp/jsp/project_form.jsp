@@ -24,7 +24,7 @@
 <div id="logout-popup" class="custom-popup" style="display: none;">
     <h2>ログアウト確認</h2>
     <p>本当にログアウトしますか？</p>
-    <form action="${pageContext.request.contextPath}/jsp/logout.jsp" method="post">
+    <form action="${pageContext.request.contextPath}/LogoutController" method="post">
         <div class="popup-buttons">
             <button type="submit" class="popup-btn-submit">ログアウト</button>
             <button type="button" class="popup-btn-cancel" onclick="document.getElementById('logout-popup').style.display='none'">戻る</button>
@@ -51,7 +51,7 @@
             <table class="project-table">
                 <tr>
                     <th>プロジェクト名</th>
-                    <td><input type="text" name="project_name" value="${project.projectName}" required></td>
+                    <td><input type="text" name="project_name" value="<c:out value='${project.projectName}'/>" required></td>
                 </tr>
                 <tr>
                     <th>締め切り</th>

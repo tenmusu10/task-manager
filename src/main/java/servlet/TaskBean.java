@@ -199,4 +199,31 @@ public class TaskBean implements Serializable {
         }
         return result;
     }
+
+    // --- 5. 削除用：ステータスを「削除」に更新（論理削除） ---
+    public static boolean deleteTask(int taskId) {
+        Connection conn = null;
+        PreparedStatement st = null;
+        boolean result = false;
+
+        try {
+            conn = new ResourceFinder().getConnection();
+            String sql = "UPDATE tasks SET status = '削除' WHERE task_id = ?";
+            st = conn.prepareStatement(sql);
+            st.setInt(1, taskId);
+
+            int rows = st.executeUpdate();
+            if (rows > 0) result = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (st != null) st.close();
+                if (conn != null) conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
 }

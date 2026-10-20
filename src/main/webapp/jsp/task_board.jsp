@@ -54,8 +54,8 @@
                         <td><c:out value="${task.assigneeName}"/></td>
                         <td><c:out value="${task.status}"/></td>
                         <td>
-                            <a href="${pageContext.request.contextPath}/TaskUpdateServlet?task_id="${task.taskId}"&project_id=${projectId}" class="edit-link">編集</a> / 
-                            <a href="#" class="delete-link" onclick="openDeletePopup('${task.taskId}', '${task.taskName}')">削除</a>
+                            <a href="${pageContext.request.contextPath}/TaskUpdateServlet?task_id=${task.taskId}&project_id=${projectId}" class="edit-link">編集</a> / 
+                            <a href="#" class="delete-link" data-id="${task.taskId}" data-name="<c:out value='${task.taskName}'/>" onclick="openDeletePopup(this.dataset.id, this.dataset.name); return false;">削除</a>
                         </td>
                     </tr>
                 </c:forEach>
@@ -89,6 +89,8 @@
 
 	<!-- 削除完了ポップアップ -->
 	<c:if test="${not empty deleteTaskSuccess}">
+	    <%-- ★修正：表示したらフラグを消す（消さないと毎回ポップアップが出る） --%>
+	    <c:remove var="deleteTaskSuccess" scope="session"/>
         <div id="success-popup" class="popup-overlay success-active">
             <div class="popup-card">
                 <h2>完了</h2>
@@ -105,7 +107,7 @@
 	    <div class="popup-card">
 	        <h2>ログアウト確認</h2>
 	        <p class="popup-message">本当にログアウトしますか？</p>
-	        <form action="${pageContext.request.contextPath}/LogoutServlet" method="post">
+	        <form action="${pageContext.request.contextPath}/LogoutController" method="post">
 	            <div class="popup-action-buttons">
 	                <!-- ★修正：古いインライン記述を廃止し、新しい共通CSSクラスへ完全統一 -->
 	                <button type="submit" class="popup-yes-button">はい</button>

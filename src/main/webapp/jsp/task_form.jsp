@@ -25,7 +25,7 @@
         
         <!-- 戻るリンクエリア -->
         <div class="navigation-area">
-            <a href="${pageContext.request.contextPath}/ProjectListServlet" class="back-link">← タスク一覧に戻る</a>
+            <a href="${pageContext.request.contextPath}/TaskBoardServlet?project_id=${projectId}" class="back-link">← タスク一覧に戻る</a>
         </div>
         
         <!-- ページタイトル -->
@@ -33,7 +33,7 @@
         
         <!-- フォームカードコンテナ -->
         <div class="form-card">
-            <form action="${pageContext.request.contextPath}/${not empty task ? 'TaskUpdateServlet' : 'TaskCreateServlet'}" method="get/post" accept-charset="UTF-8">
+            <form action="${pageContext.request.contextPath}/${not empty task ? 'TaskUpdateServlet' : 'TaskCreateServlet'}" method="post" accept-charset="UTF-8">
 
                 <%-- 隠しフィールド --%>
                 <input type="hidden" name="project_id" value="${projectId}">
@@ -49,7 +49,7 @@
                             <td>
                                 <span class="project-name-display">
                                     <c:choose>
-                                        <c:when test="${not empty project}">${project.projectName}</c:when>
+                                        <c:when test="${not empty project}"><c:out value="${project.projectName}"/></c:when>
                                         <c:otherwise>プロジェクトID: ${projectId}</c:otherwise>
                                     </c:choose>
                                 </span>
@@ -58,7 +58,7 @@
 
                         <tr>
                             <td>タスク名</td>
-                            <td><input type="text" name="task_name" value="${task.taskName}" required placeholder="タスク名を入力してください"></td>
+                            <td><input type="text" name="task_name" value="<c:out value='${task.taskName}'/>" required placeholder="タスク名を入力してください"></td>
                         </tr>
 
                         <tr>
@@ -82,7 +82,7 @@
                                     <option value="">-- 担当者を選択してください --</option>
                                     <c:forEach var="user" items="${userList}">
                                         <option value="${user.userId}" ${not empty task and task.assigneeId == user.userId ? 'selected' : ''}>
-                                            ${user.userName}
+                                            <c:out value="${user.userName}"/>
                                         </option>
                                     </c:forEach>
                                 </select>
@@ -103,7 +103,7 @@
     <div id="logout-popup" class="custom-popup" style="display: none;">
         <h2>ログアウト確認</h2>
         <p>本当にログアウトしますか？</p>
-        <form action="${pageContext.request.contextPath}/jsp.logout.jsp" method="post">
+        <form action="${pageContext.request.contextPath}/LogoutController" method="post">
             <div class="popup-buttons">
                 <button type="submit" class="popup-btn-submit">ログアウト</button>
                 <button type="button" class="popup-btn-cancel" onclick="document.getElementById('logout-popup').style.display='none'">戻る</button>

@@ -14,7 +14,7 @@
 <main class="login-container">
 	<section class="login-card">
 	<h1>ログアウトしました</h1>
-	<form action="${pageContext.request.contextPath}/LoginServlet" method="post" autocomplete="off">
+	<form action="${pageContext.request.contextPath}/jsp/login.jsp" method="get" autocomplete="off">
 		<div class="form-group"></div>
 		<button type="submit" class="login-button">ログイン画面へ</button>
 	</form>

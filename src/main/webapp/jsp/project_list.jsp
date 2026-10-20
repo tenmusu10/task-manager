@@ -17,7 +17,7 @@
 ログイン中のユーザー：
 <strong><c:out value="${not empty sessionScope.user_name ? sessionScope.user_name : (not empty sessionScope.loginid ? sessionScope.loginid : 'ゲスト')}"/></strong></div>
 <button type="button" class="logout-button" onclick="document.getElementById('logout-popup').style.display='block'">
-ログアウト</button></div>
+ログアウト</button>
 </header>
 
 
@@ -68,7 +68,7 @@
 	<!-- 5列目：操作 -->
 	<td>
 	    <a href="${pageContext.request.contextPath}/ProjectEditServlet?project_id=${project.projectId}" class="edit-link">編集</a> / 
-	    <a href="#" class="delete-link" onclick="openDeletePopup('${project.projectId}', '${project.projectName}')">削除</a>
+	    <a href="#" class="delete-link" data-id="${project.projectId}" data-name="<c:out value='${project.projectName}'/>" onclick="openDeletePopup(this.dataset.id, this.dataset.name); return false;">削除</a>
 	</td>
 	</tr>
 	</c:forEach>
@@ -102,6 +102,8 @@
 
 	<!-- 削除成功完了ポップアップ -->
 	<c:if test="${not empty deleteSuccess}">
+	<%-- ★修正：表示したらフラグを消す（消さないと毎回ポップアップが出る） --%>
+	<c:remove var="deleteSuccess" scope="session"/>
 	<div id="success-popup" class="popup-overlay success-active">
 	<div class="popup-card">
 	<h2>完了</h2>
@@ -117,14 +119,13 @@
 <div id="logout-popup" class="custom-popup" style="display: none;">
     <h2>ログアウト確認</h2>
     <p>本当にログアウトしますか？</p>
-    <form action="${pageContext.request.contextPath}/jsp.logout.jsp" method="post">
+    <form action="${pageContext.request.contextPath}/LogoutController" method="post">
         <div class="popup-buttons">
             <button type="submit" class="popup-btn-submit">ログアウト</button>
             <button type="button" class="popup-btn-cancel" onclick="document.getElementById('logout-popup').style.display='none'">戻る</button>
         </div>
     </form>
 </div>
-</header>
 
 	<!-- スクリプト制御部 -->
 	<script>

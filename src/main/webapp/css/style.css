@@ -271,6 +271,288 @@ h1 {
 
 
 /* ===================================================
+   ここから追加：JSPで使っているが未定義だったクラス
+   =================================================== */
+
+/* 戻るリンク */
+.navigation-area {
+  margin-bottom: 15px;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 8px;
+  color: #176b4d;            /* プライマリーカラー（深緑） */
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+/* 進捗（棒グラフ ＆ 件数表示） */
+.progress-cell {
+  min-width: 180px;          /* バーが細くなりすぎないよう最低幅を確保 */
+}
+
+.progress-bar-container {
+  width: 100%;
+  height: 10px;
+  background-color: #e5ede9; /* バーの土台（薄いグレー） */
+  border-radius: 999px;
+  overflow: hidden;          /* 中身のバーを角丸に収める */
+}
+
+.progress-bar-fill {
+  height: 100%;              /* 幅はJSP側の style="width: ○%" で指定 */
+  background-color: #176b4d;
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: 6px;
+  font-size: 13px;
+}
+
+.percent-num {
+  font-weight: bold;
+  color: #176b4d;
+}
+
+.task-count {
+  color: #6b7771;            /* サブテキスト色 */
+}
+
+/* フォーム画面（project_form / task_form） */
+.form-card {
+  padding: 24px 32px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.task-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.task-table td {
+  padding: 14px 8px;
+  border-bottom: 1px solid #e5ede9;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.task-table td:first-child {
+  width: 140px;              /* 項目名の列幅 */
+  font-weight: bold;
+}
+
+/* フォーム内の入力欄・プルダウン */
+.task-table input[type="text"],
+.task-table input[type="date"],
+.task-table select,
+.project-table input[type="text"],
+.project-table input[type="date"] {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d5ddd8;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: inherit;
+  background-color: #ffffff;
+  color: inherit;
+  outline: none;
+}
+
+.task-table input:focus,
+.task-table select:focus,
+.project-table input:focus {
+  border-color: #176b4d;
+  box-shadow: 0 0 0 3px rgba(23, 107, 77, 0.25);
+}
+
+.project-name-display {
+  font-weight: bold;
+}
+
+.radio-group label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.form-action {
+  margin-top: 24px;
+  text-align: center;
+}
+
+/* 送信ボタン（タスク作成・更新） */
+.submit-button {
+  padding: 12px 32px;
+  border: none;
+  border-radius: 6px;
+  background-color: #176b4d;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: bold;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.submit-button:hover {
+  background-color: #10563d;
+}
+
+/* <button> に create-button を付けた場合（project_form の作成・更新ボタン） */
+button.create-button {
+  border: none;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* ポップアップ（画面全体を暗くして中央に表示：削除確認・削除完了・ログアウト確認） */
+.popup-overlay {
+  position: fixed;
+  inset: 0;                  /* 画面全体を覆う */
+  display: flex;             /* JSP側で display: none / flex を切り替える */
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.45);
+  z-index: 1000;
+}
+
+.popup-card {
+  width: 90%;
+  max-width: 400px;
+  padding: 28px 24px 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.popup-card h2,
+.custom-popup h2 {
+  margin: 0 0 12px;
+  font-size: 18px;
+}
+
+.popup-message {
+  margin: 0 0 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e5ede9;
+  font-size: 14px;
+}
+
+.popup-action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* 「はい」（赤い太字） */
+.popup-yes-button {
+  min-width: 100px;
+  padding: 10px 20px;
+  border: 1px solid #fda29b;
+  border-radius: 6px;
+  background-color: #fef3f2;
+  color: #b42318;
+  font-weight: bold;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.popup-yes-button:hover {
+  background-color: #fee4e2;
+}
+
+/* 「いいえ」（黒字） */
+.popup-cancel-button {
+  min-width: 100px;
+  padding: 10px 20px;
+  border: 1px solid #d5ddd8;
+  border-radius: 6px;
+  background-color: #ffffff;
+  color: #26352e;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.popup-cancel-button:hover {
+  background-color: #f4f7f5;
+}
+
+/* ログアウト確認ポップアップ（custom-popup：枠だけの要素なので影で背景を暗くする） */
+.custom-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 360px;
+  padding: 28px 24px 20px;
+  flex-direction: column;    /* display: flex で開かれた場合も縦に並べる */
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.45), 0 12px 32px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  z-index: 1000;
+}
+
+.custom-popup p {
+  margin: 0 0 20px;
+  font-size: 14px;
+}
+
+.popup-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.popup-btn-submit {
+  min-width: 100px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  background-color: #b42318; /* アラートカラー（赤） */
+  color: #ffffff;
+  font-weight: bold;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.popup-btn-submit:hover {
+  background-color: #912018;
+}
+
+.popup-btn-cancel {
+  min-width: 100px;
+  padding: 10px 20px;
+  border: 1px solid #d5ddd8;
+  border-radius: 6px;
+  background-color: #ffffff;
+  color: #26352e;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.popup-btn-cancel:hover {
+  background-color: #f4f7f5;
+}
+
+/* ===================================================
    ダークモード
    OS（Windows・スマホなど）がダークモードの時だけ適用される
    =================================================== */
@@ -361,5 +643,76 @@ h1 {
 
   .task-link:hover {
     background-color: #0f4c6b;
+  }
+
+  /* --- 追加分のダークモード --- */
+  .back-link,
+  .percent-num {
+    color: #5cc49a;
+  }
+
+  .task-count {
+    color: #9aa8a1;
+  }
+
+  .progress-bar-container {
+    background-color: #2c3631;
+  }
+
+  .progress-bar-fill {
+    background-color: #2fa877;
+  }
+
+  .form-card,
+  .popup-card,
+  .custom-popup {
+    background-color: #1f2723;
+  }
+
+  .task-table td,
+  .popup-message {
+    border-bottom-color: #34403a;
+  }
+
+  .task-table input[type="text"],
+  .task-table input[type="date"],
+  .task-table select,
+  .project-table input[type="text"],
+  .project-table input[type="date"] {
+    background-color: #151b18;
+    border-color: #3a4741;
+  }
+
+  .task-table input:focus,
+  .task-table select:focus,
+  .project-table input:focus {
+    border-color: #5cc49a;
+    box-shadow: 0 0 0 3px rgba(92, 196, 154, 0.25);
+  }
+
+  .submit-button:hover {
+    background-color: #1d8560;
+  }
+
+  .popup-yes-button {
+    background-color: #3a1d1b;
+    border-color: #7a2e28;
+    color: #ffb4ab;
+  }
+
+  .popup-yes-button:hover {
+    background-color: #4a2421;
+  }
+
+  .popup-cancel-button,
+  .popup-btn-cancel {
+    background-color: #26302b;
+    border-color: #3a4741;
+    color: #e3ebe7;
+  }
+
+  .popup-cancel-button:hover,
+  .popup-btn-cancel:hover {
+    background-color: #2f3a34;
   }
 }

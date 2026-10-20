@@ -169,7 +169,12 @@ public class ProjectBean implements Serializable {
             st.setInt(1, prj.getProjectId());
             st.setString(2, prj.getProjectName());
             st.setString(3, prj.getDescription()); 
-            st.setString(4, prj.getDeadline());
+            // ★修正：締め切りが空欄の場合はNULLをセット（空文字はDATE型に入らない）
+            if (prj.getDeadline() == null || prj.getDeadline().isEmpty()) {
+                st.setNull(4, java.sql.Types.DATE);
+            } else {
+                st.setString(4, prj.getDeadline());
+            }
             st.setInt(5, prj.getCreatedBy());
             st.setTimestamp(6, prj.getCreatedAt());
             

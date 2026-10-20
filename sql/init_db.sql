@@ -48,6 +48,16 @@ CREATE TABLE tasks (
     CONSTRAINT fk_tasks_created_by FOREIGN KEY (created_by) REFERENCES users(user_id)
 );
 
+-- 5. タスク担当者テーブル（★追加：1つのタスクに複数の担当者を登録するため）
+--    tasks.assignee_id には先頭の担当者も引き続き入れる
+CREATE TABLE task_assignees (
+    task_id INT NOT NULL,
+    user_id INT NOT NULL,
+    PRIMARY KEY (task_id, user_id),
+    CONSTRAINT fk_task_assignees_task FOREIGN KEY (task_id) REFERENCES tasks(task_id) ON DELETE CASCADE,
+    CONSTRAINT fk_task_assignees_user FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+
 -- ==========================================
 -- 以下、テスト用の初期ダミーデータ
 -- ==========================================
@@ -55,7 +65,8 @@ CREATE TABLE tasks (
 INSERT INTO statuses (status_code, status_name, sort_order) VALUES
 ('未着手', '未着手', 1),
 ('進行中', '進行中', 2),
-('完了', '完了', 3);
+('完了', '完了', 3),
+('削除', '削除', 9); -- ★追加：タスクの論理削除（status = '削除'）に使う。fk_tasks_status があるため必要
 
 INSERT INTO users (login_id, password, user_name) VALUES
 ('sugita', 'pass123', '杉田'),
@@ -75,3 +86,7 @@ INSERT INTO tasks (project_id, task_name, description, status, assignee_id, dead
 (1, 'タスク新規登録Servletの実装', 'フォームの値を受け取りINSERTする', '未着手', 4, '2026-10-16', 1),
 (1, 'ログイン画面・ボード画面のJSP作成', 'まずは白黒のHTMLで枠組みを作る', '進行中', 5, '2026-10-16', 1),
 (1, '入力フォーム作成とCSSデザイン', '登録フォームの作成とTrello風の3列レイアウト調整', '未着手', 6, '2026-10-18', 1);
+
+-- ★追加：各タスクの担当者（assignee_id）を task_assignees にも登録
+INSERT INTO task_assignees (task_id, user_id)
+SELECT task_id, assignee_id FROM tasks WHERE assignee_id IS NOT NULL;

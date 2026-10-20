@@ -20,7 +20,6 @@
     ログアウト
 </button>
 
-<!-- ポップアップ本体（CSSクラス custom-popup を指定） -->
 <!-- ★修正：ログアウト確認ポップアップを task_board.jsp と同じ形に統一 -->
 <div id="logout-popup" class="popup-overlay" style="display: none;">
     <div class="popup-card">

@@ -441,8 +441,7 @@ button.create-button {
   text-align: center;
 }
 
-.popup-card h2,
-.custom-popup h2 {
+.popup-card h2 {
   margin: 0 0 12px;
   font-size: 18px;
 }
@@ -490,65 +489,6 @@ button.create-button {
 }
 
 .popup-cancel-button:hover {
-  background-color: #f4f7f5;
-}
-
-/* ログアウト確認ポップアップ（custom-popup：枠だけの要素なので影で背景を暗くする） */
-.custom-popup {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 90%;
-  max-width: 360px;
-  padding: 28px 24px 20px;
-  flex-direction: column;    /* display: flex で開かれた場合も縦に並べる */
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.45), 0 12px 32px rgba(0, 0, 0, 0.2);
-  text-align: center;
-  z-index: 1000;
-}
-
-.custom-popup p {
-  margin: 0 0 20px;
-  font-size: 14px;
-}
-
-.popup-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-}
-
-.popup-btn-submit {
-  min-width: 100px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 6px;
-  background-color: #b42318; /* アラートカラー（赤） */
-  color: #ffffff;
-  font-weight: bold;
-  font-family: inherit;
-  cursor: pointer;
-}
-
-.popup-btn-submit:hover {
-  background-color: #912018;
-}
-
-.popup-btn-cancel {
-  min-width: 100px;
-  padding: 10px 20px;
-  border: 1px solid #d5ddd8;
-  border-radius: 6px;
-  background-color: #ffffff;
-  color: #26352e;
-  font-family: inherit;
-  cursor: pointer;
-}
-
-.popup-btn-cancel:hover {
   background-color: #f4f7f5;
 }
 
@@ -664,8 +604,7 @@ button.create-button {
   }
 
   .form-card,
-  .popup-card,
-  .custom-popup {
+  .popup-card {
     background-color: #1f2723;
   }
 
@@ -704,15 +643,13 @@ button.create-button {
     background-color: #4a2421;
   }
 
-  .popup-cancel-button,
-  .popup-btn-cancel {
+  .popup-cancel-button {
     background-color: #26302b;
     border-color: #3a4741;
     color: #e3ebe7;
   }
 
-  .popup-cancel-button:hover,
-  .popup-btn-cancel:hover {
+  .popup-cancel-button:hover {
     background-color: #2f3a34;
   }
 }

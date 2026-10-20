@@ -268,3 +268,98 @@ h1 {
   opacity: 1;
   pointer-events: auto;
 }
+
+
+/* ===================================================
+   ダークモード
+   OS（Windows・スマホなど）がダークモードの時だけ適用される
+   =================================================== */
+@media (prefers-color-scheme: dark) {
+
+  :root {
+    color-scheme: dark; /* 入力欄・日付選択・プルダウンなどの標準部品も暗い色にする */
+  }
+
+  body {
+    background-color: #151b18; /* 画面全体の背景色（黒に近い緑） */
+    color: #e3ebe7;            /* 基本文字色（明るいグレー） */
+  }
+
+  /* カード・ヘッダー・テーブルの背景 */
+  .login-card,
+  .main-header,
+  .project-table {
+    background-color: #1f2723;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
+  }
+
+  .main-header {
+    border-bottom-color: #34403a;
+  }
+
+  /* タイトル・リンク（暗い背景でも読めるよう明るい緑） */
+  h1,
+  .member-link a,
+  .edit-link {
+    color: #5cc49a;
+  }
+
+  .subtitle {
+    color: #9aa8a1;
+  }
+
+  /* 入力欄 */
+  .form-group input {
+    background-color: #151b18;
+    color: #e3ebe7;
+    border-color: #3a4741;
+  }
+
+  .form-group input:focus {
+    border-color: #5cc49a;
+    box-shadow: 0 0 0 3px rgba(92, 196, 154, 0.25);
+  }
+
+  /* 緑のボタンはそのまま。ホバー時は少し明るくする */
+  .login-button:hover,
+  .create-button:hover {
+    background-color: #1d8560;
+  }
+
+  /* エラーメッセージ・ログアウトボタン・削除リンク（赤系） */
+  .error-message,
+  .logout-button {
+    background-color: #3a1d1b;
+    border-color: #7a2e28;
+    color: #ffb4ab;
+  }
+
+  .logout-button:hover {
+    background-color: #4a2421;
+  }
+
+  .delete-link {
+    color: #ff8a80;
+  }
+
+  /* テーブル */
+  .project-table th {
+    background-color: #26302b;
+    color: #e3ebe7;
+    border-bottom-color: #34403a;
+  }
+
+  .project-table td {
+    border-bottom-color: #2c3631;
+  }
+
+  /* タスク一覧ボタン（青系） */
+  .task-link {
+    background-color: #0c3a52;
+    color: #7dd3fc;
+  }
+
+  .task-link:hover {
+    background-color: #0f4c6b;
+  }
+}

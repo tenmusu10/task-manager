@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>${not empty task ? "タスク編集" : "新規タスク作成"}</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<script src="${pageContext.request.contextPath}/js/clock.js" defer></script>
 </head>
 
 <body>
@@ -16,6 +17,7 @@
             <strong>
                 <c:out value="${not empty sessionScope.user_name ? sessionScope.user_name : (not empty sessionScope.loginid ? sessionScope.loginid : 'ゲスト')}"/>
             </strong>
+            <span id="current-datetime" class="current-datetime"></span>
         </div>
         <button type="button" class="logout-button" onclick="openLogoutPopup()">ログアウト</button>
     </header>
@@ -33,7 +35,7 @@
         
         <!-- フォームカードコンテナ -->
         <div class="form-card">
-            <form action="${pageContext.request.contextPath}/${not empty task ? 'TaskUpdateServlet' : 'TaskCreateServlet'}" method="post" accept-charset="UTF-8">
+            <form action="${pageContext.request.contextPath}/${not empty task ? 'TaskUpdateServlet' : 'TaskCreateServlet'}" method="post" accept-charset="UTF-8" onsubmit="return checkAssignee()">
 
                 <%-- 隠しフィールド --%>
                 <input type="hidden" name="project_id" value="${projectId}">
@@ -77,15 +79,11 @@
 
                         <tr>
                             <td>担当者</td>
-                            <td>
-                                <select name="assignee_id" required>
-                                    <option value="">-- 担当者を選択してください --</option>
-                                    <c:forEach var="user" items="${userList}">
-                                        <option value="${user.userId}" ${not empty task and task.assigneeId == user.userId ? 'selected' : ''}>
-                                            <c:out value="${user.userName}"/>
-                                        </option>
-                                    </c:forEach>
-                                </select>
+                            <%-- ★修正：担当者を複数選べるようチェックボックスに変更 --%>
+                            <td class="checkbox-group">
+                                <c:forEach var="user" items="${userList}">
+                                    <label><input type="checkbox" name="assignee_id" value="${user.userId}" ${not empty task and task.assigneeIds.contains(user.userId) ? 'checked' : ''}> <c:out value="${user.userName}"/></label>
+                                </c:forEach>
                             </td>
                         </tr>
                     </tbody>
@@ -122,6 +120,15 @@
 
         function closeLogoutPopup() {
             document.getElementById('logout-popup').style.display = 'none';
+        }
+
+        // ★追加：担当者が1人も選ばれていなければ送信しない
+        function checkAssignee() {
+            if (document.querySelectorAll('input[name="assignee_id"]:checked').length === 0) {
+                alert('担当者を1人以上選択してください。');
+                return false;
+            }
+            return true;
         }
     </script>
 </body>

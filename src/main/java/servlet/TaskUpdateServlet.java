@@ -44,7 +44,7 @@ public class TaskUpdateServlet extends HttpServlet {
         String taskName = request.getParameter("task_name");
         String deadline = request.getParameter("deadline");
         String status = request.getParameter("status");
-        String assigneeIdStr = request.getParameter("assignee_id");
+        String[] assigneeIdStrs = request.getParameterValues("assignee_id"); // ★修正：担当者は複数
 
         // ★追加対策：エラー防止
         if (taskIdStr == null || taskIdStr.isEmpty() || projectIdStr == null || projectIdStr.isEmpty()) {
@@ -54,9 +54,9 @@ public class TaskUpdateServlet extends HttpServlet {
 
         int taskId = Integer.parseInt(taskIdStr);
         int projectId = Integer.parseInt(projectIdStr);
-        int assigneeId = (assigneeIdStr != null && !assigneeIdStr.isEmpty()) ? Integer.parseInt(assigneeIdStr) : 1;
+        int[] assigneeIds = TaskBean.toAssigneeIds(assigneeIdStrs);
 
-        TaskBean.updateTask(taskId, taskName, deadline, status, assigneeId);
+        TaskBean.updateTask(taskId, taskName, deadline, status, assigneeIds);
 
         response.sendRedirect(request.getContextPath() + "/TaskBoardServlet?project_id=" + projectId);
     }

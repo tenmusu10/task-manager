@@ -382,12 +382,24 @@ h1 {
   font-weight: bold;
 }
 
-.radio-group label {
+.radio-group label,
+.checkbox-group label {
   display: inline-flex;
   align-items: center;
   gap: 4px;
   margin-right: 20px;
   cursor: pointer;
+}
+
+.checkbox-group {
+  line-height: 2;            /* 担当者が多くて折り返しても見やすく */
+}
+
+/* 現在日時（ヘッダーのユーザー名の横） */
+.current-datetime {
+  margin-left: 16px;
+  color: #6b7771;            /* サブテキスト色 */
+  font-variant-numeric: tabular-nums; /* 数字の幅を揃えて表示がぶれないようにする */
 }
 
 .form-action {
@@ -591,7 +603,8 @@ button.create-button {
     color: #5cc49a;
   }
 
-  .task-count {
+  .task-count,
+  .current-datetime {
     color: #9aa8a1;
   }
 

@@ -45,10 +45,10 @@ public class TaskCreateServlet extends HttpServlet {
         String taskName = request.getParameter("task_name");
         String deadline = request.getParameter("deadline");
         String status = request.getParameter("status");
-        String assigneeIdStr = request.getParameter("assignee_id");
+        String[] assigneeIdStrs = request.getParameterValues("assignee_id"); // ★修正：担当者は複数
         
         // ★調査用ログ：画面から飛んできた中身をすべて表示
-        System.out.println("受信データ -> プロジェクトID: [" + projectIdStr + "], タスク名: [" + taskName + "], 期限: [" + deadline + "], 担当者ID: [" + assigneeIdStr + "]");
+        System.out.println("受信データ -> プロジェクトID: [" + projectIdStr + "], タスク名: [" + taskName + "], 期限: [" + deadline + "], 担当者ID: " + java.util.Arrays.toString(assigneeIdStrs));
 
         if (projectIdStr == null || projectIdStr.isEmpty()) {
             System.out.println("【原因判明】プロジェクトIDが空っぽだったため、保存せずに一覧へ戻ります！");
@@ -57,10 +57,10 @@ public class TaskCreateServlet extends HttpServlet {
         }
 
         int projectId = Integer.parseInt(projectIdStr);
-        int assigneeId = (assigneeIdStr != null && !assigneeIdStr.isEmpty()) ? Integer.parseInt(assigneeIdStr) : 1;
+        int[] assigneeIds = TaskBean.toAssigneeIds(assigneeIdStrs);
         
         System.out.println("★これからデータベースに保存します...");
-        boolean result = TaskBean.insertTask(projectId, taskName, deadline, status, assigneeId);
+        boolean result = TaskBean.insertTask(projectId, taskName, deadline, status, assigneeIds);
         System.out.println("★保存結果（trueなら成功）: " + result);
         
         response.sendRedirect(request.getContextPath() + "/TaskBoardServlet?project_id=" + projectId);

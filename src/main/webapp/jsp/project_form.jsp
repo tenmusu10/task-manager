@@ -6,7 +6,6 @@
 <meta charset="UTF-8">
 <title>${not empty project ? "プロジェクト編集" : "新規プロジェクト作成"}</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
-<script src="${pageContext.request.contextPath}/js/clock.js" defer></script>
 </head>
 
 
@@ -14,7 +13,7 @@
 <header class="main-header">
 <div class="user-info">
 ログイン中のユーザー：
-<strong><c:out value="${not empty sessionScope.user_name ? sessionScope.user_name : (not empty sessionScope.loginid ? sessionScope.loginid : 'ゲスト')}"/></strong><span id="current-datetime" class="current-datetime"></span></div>
+<strong><c:out value="${not empty sessionScope.user_name ? sessionScope.user_name : (not empty sessionScope.loginid ? sessionScope.loginid : 'ゲスト')}"/></strong><span class="current-datetime"><c:out value="${currentDateTime}"/></span></div>
 
 <!-- ボタン（1行で完結するタイプ） -->
 <button type="button" class="logout-button" onclick="openLogoutPopup()">

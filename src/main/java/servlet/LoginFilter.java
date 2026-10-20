@@ -1,6 +1,10 @@
 package servlet;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
@@ -27,9 +31,16 @@ public class LoginFilter implements Filter {
         "/LoginToRegisterController", "/UserRegisterServlet",
     };
 
+    // ヘッダーに表示する現在日時の形式（例：2026/10/20（火） 15:30）
+    private static final DateTimeFormatter DATE_TIME_FORMAT =
+        DateTimeFormatter.ofPattern("yyyy/MM/dd（E） HH:mm", Locale.JAPANESE);
+
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
+
+        // 各画面のヘッダーで ${currentDateTime} として表示する（画面を開いた時点の日時）
+        request.setAttribute("currentDateTime", LocalDateTime.now(ZoneId.of("Asia/Tokyo")).format(DATE_TIME_FORMAT));
 
         String path = request.getRequestURI().substring(request.getContextPath().length());
 
